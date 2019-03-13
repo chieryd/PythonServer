@@ -1,8 +1,6 @@
 from flask_restful import Resource
 from flask import request
-from CryptoFile.AESCoder import AESCoder
-from CryptoFile.RSACoder import RSACoder
-import json
+from CryptoFile.HDCrypto import encrypt, decrypt
 
 class Hello(Resource):
     def get(self):
@@ -10,21 +8,12 @@ class Hello(Resource):
 
     def post(self):
         json_data = request.get_json(force=True)
-        print(json_data)
-        aesPrivateKey = json_data["secretKey"]
-        dataContent = json_data["data"]
-
-        rsa_coder = RSACoder()
-
-        # 解密aes秘钥
-        aes_encrypt_key = rsa_coder.decrypt(aesPrivateKey)
 
         # 解密数据
-        aes_coder = AESCoder(aes_encrypt_key)
-        decrypt_data = aes_coder.decrypt(dataContent)
+        decrypt_dict = decrypt(json_data)
 
-        # string to json
-        json_data_content = json.load(decrypt_data)
-        print(json_data_content)
+        # 加密数据
+        return_json = {"error_code": 0, "error_msg": "", "data": {"message": "Hello, World!"}}
+        encrypt_dict = encrypt(return_json)
 
-        return {"message": "Hello, World!"}
+        return encrypt_dict

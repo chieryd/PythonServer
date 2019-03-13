@@ -22,12 +22,14 @@ class AESCoder():
         self.ciphertext = cryptor.encrypt(text)
         #因为AES加密时候得到的字符串不一定是ascii字符集的，输出到终端或者保存时候可能存在问题
         #所以这里统一把加密后的字符串用base64转化
-        return base64.b64encode(self.ciphertext)
+        return base64.b64encode(self.ciphertext).decode()
 
     #解密后，去掉补足的'\0'用strip() 去掉
     def decrypt(self, text):
         decode = base64.b64decode(text)
         cryptor = AES.new(self.key, self.mode, IV=self.iv)
-        plain_text = cryptor.decrypt(decode).decode()
-        strip_text = plain_text.rstrip('\0')
+        plain_text = cryptor.decrypt(decode)
+        plain_text_decode = plain_text.decode()
+        print(plain_text_decode)
+        strip_text = plain_text_decode.rstrip('\0')
         return strip_text
