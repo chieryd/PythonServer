@@ -32,4 +32,8 @@ class AESCoder():
         plain_text_decode = plain_text.decode()
         print(plain_text_decode)
         strip_text = plain_text_decode.rstrip('\0')
-        return strip_text
+        # 剥离数据尾部的空格符
+        str = strip_text[(len(strip_text) - 1):]
+        if str != '}':
+            tempString = strip_text.rstrip(str)
+        return tempString
