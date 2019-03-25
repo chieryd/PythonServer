@@ -1,5 +1,11 @@
 from app import db
 
+class ARWorldMap(db.Model):
+    __tablename__ = 'arworldmaps'
+    id = db.Column(db.Integer, primary_key=True)
+    worldmap = db.Column(db.LargeBinary)
+    nodes = db.relationship('nodes', backref='arworldmaps', lazy='dynamic')
+
 class NodeModel(db.Model):
     __tablename__ = 'nodes'
     id = db.Column(db.Integer, primary_key=True)

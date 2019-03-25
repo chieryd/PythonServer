@@ -1,7 +1,9 @@
 from app import app, api, request
 from API.NodeAPI import NodeAPI
+from API.ARWorldMapAPI import ARWorldMapAPI
 
 api.add_resource(NodeAPI, '/node')
+api.add_resource(ARWorldMapAPI, '/test')
 
 @app.before_request
 def handle_before_request():

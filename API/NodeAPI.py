@@ -6,6 +6,8 @@ import json
 
 class NodeAPI(Resource):
     def get(self):
+        # 获取用户数据
+        nodes = db.query
         return {"message": "Hello, World!"}
 
     def post(self):
